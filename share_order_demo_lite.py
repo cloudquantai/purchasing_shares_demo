@@ -68,18 +68,9 @@ class breakout_purchase(Strategy):
 
                         # go long if stock is above its normal values
                         if (average_high) < bar_close[0]:
-                            # Now that we know we are going long, we have to figure out the best way to do it. First, how many shares?
-
-                            # One option is to just use a fixed number of shares
-                            num_shares = 100
-
-                            # Another is to allocate the amount you purchase based on the volume at the last minute.
-                            # You have options that include md[self.symbol].L1.ask_size and md[self.symbol].L1.minute_volume
-                            # For this example I use the bar's askvol, which I have found to be the most accurate.
-                            num_shares = int(bar_askvol[0] * .1)
-
-                            # Finally, we have the option of purchasing a fixed dollar amount of a particular share.
-                            # This is the recommended way. You can adjust the amount based on how much risk you want to take.
+                            # Now that we know we are going long, we have to figure out the best way to do it. First, we determine
+                            # the number of shares
+                            
                             num_shares = np.round(purchase_amount / md[self.symbol].L1.last)
 
                             # To execute the trade, we have a few options. First, we could just purchase at market value,
